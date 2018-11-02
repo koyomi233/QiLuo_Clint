@@ -66,5 +66,38 @@ describe('Collection', () => {
                 });
         });
     });
+    describe('POST /collection', () => {
+        it('should return confirmation message and update datastore', function (done) {
+            let board = {
+                category: 'Travel' ,
+                name: 'Beijing',
+                size: 14,
+                follow: 2
+            };
+            chai.request(server)
+                .post('/collection')
+                .send(board)
+                .end(function(err, res) {
+                    expect(res).to.have.status(200);
+                    expect(res.body).to.have.property('message').equal('Collection Successfully Added!' );
+                    done();
+                });
+        });
+        after(function  (done) {
+            chai.request(server)
+                .get('/collection')
+                .end(function(err, res) {
+                    let result = _.map(res.body, (board) => {
+                        return { category: board.category,
+                            name: board.name };
+                    }  );
+                    expect(result).to.include( { category: 'Travel', name: 'Beijing'  } );
+                    Collection.collection.remove();
+                    Picture.collection.remove();
+                    User.collection.remove();
+                    done();
+                });
+        });
+    })
 
 });
