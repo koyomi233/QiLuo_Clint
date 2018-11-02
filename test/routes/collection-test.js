@@ -98,6 +98,30 @@ describe('Collection', () => {
                     done();
                 });
         });
-    })
+    });
+    describe('PUT /collection/:id/attentionAdd', () => {
+        it('should return a message and follow + 1', function (done) {
+            chai.request(server)
+                .put('/collection/5bceef76b42bc703dde7da06/attentionAdd')
+                .end(function (err, res) {
+                    expect(res).to.have.status(200);
+                    let board = res.body.data;
+                    expect(board).to.include({_id: '5bceef76b42bc703dde7da06', follow: 8});
+                    done();
+                });
+        });
+        it('should return a message for invalid collection id', function (done) {
+            chai.request(server)
+                .put('/collection/00000000000000/attentionAdd')
+                .end(function(err, res) {
+                    expect(res).to.have.status(200);
+                    expect(res.body).to.have.property('message','Collection NOT Found!' ) ;
+                    Collection.collection.remove();
+                    Picture.collection.remove();
+                    User.collection.remove();
+                    done();
+                });
+        });
+    });
 
 });
