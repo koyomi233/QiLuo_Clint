@@ -164,5 +164,40 @@ describe('User', () => {
                 });
         });
     });
+    describe('PUT /user/:id/removeFollow', () => {
+        it('should return a message and update users', function (done) {
+            chai.request(server)
+                .put('/user/5bcde933fb6fc060274aee1a/removeFollow')
+                .send({'follows': '5bcde909fb6fc060274aedf5'})
+                .end(function (err, res) {
+                    expect(res).to.have.status(200);
+                    expect(res.body).to.have.property('message')
+                        .equal('You have removed the follow on this user!' );
+                    done();
+                });
+        });
+        after(function  (done) {
+            chai.request(server)
+                .get('/user/317657452@qq.com')
+                .end(function(err, res) {
+                    let result = _.map(res.body, (account) => {
+                        return { fans: account.fans };
+                    }  );
+                    expect(result).to.include( { fans: [] } );
+                });
+            chai.request(server)
+                .get('/user/317657452h@sina.com')
+                .end(function(err, res) {
+                    let result = _.map(res.body, (account) => {
+                        return { follows: account.follows };
+                    }  );
+                    expect(result).to.include( { follows: [] } );
+                    Collection.collection.remove();
+                    Picture.collection.remove();
+                    User.collection.remove();
+                    done();
+                });
+        });
+    });
 
 });
