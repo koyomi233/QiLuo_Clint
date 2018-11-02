@@ -30,9 +30,9 @@ describe('Picture', () => {
                     expect(result).to.include({_id: '5bcde76cfb6fc060274aecb2', name: 'City'});
                     expect(result).to.include({_id: '5bcde78efb6fc060274aecbb', name: 'City Life'});
                     expect(result).to.include({_id: '5bcde7e0fb6fc060274aecfe', name: 'character'});
-                    Collection.collection.drop();
-                    Picture.collection.drop();
-                    User.collection.drop();
+                    Collection.collection.remove();
+                    Picture.collection.remove();
+                    User.collection.remove();
                     done();
                 });
         });
@@ -54,9 +54,39 @@ describe('Picture', () => {
                 .end(function(err, res) {
                     expect(res).to.have.status(200);
                     expect(res.body).to.have.property('message', 'No Such Picture!' );
-                    Collection.collection.drop();
-                    Picture.collection.drop();
-                    User.collection.drop();
+                    Collection.collection.remove();
+                    Picture.collection.remove();
+                    User.collection.remove();
+                    done();
+                });
+        });
+    });
+    describe('GET /picture/names/:name', () => {
+        it('should return a picture which matched the name', function (done) {
+            chai.request(server)
+                .get('/picture/names/city')
+                .end(function(err, res) {
+                    expect(res).to.have.status(200);
+                    expect(res.body).to.be.a('array');
+                    expect(res.body.length).to.equal(2);
+                    let result = _.map(res.body, (pic) => {
+                        return { _id: pic._id,
+                            name: pic.name }
+                    });
+                    expect(result).to.include( { _id: '5bcde76cfb6fc060274aecb2', name: 'City'  } );
+                    expect(result).to.include( { _id: '5bcde78efb6fc060274aecbb', name: 'City Life'  } );
+                    done();
+                });
+        });
+        it('should return a message for invalid picture name', function (done) {
+            chai.request(server)
+                .get('/picture/names/Marvel')
+                .end(function(err, res) {
+                    expect(res).to.have.status(200);
+                    expect(res.body).to.have.property('message', 'Picture NOT Found!' );
+                    Collection.collection.remove();
+                    Picture.collection.remove();
+                    User.collection.remove();
                     done();
                 });
         });
