@@ -37,4 +37,28 @@ describe('Picture', () => {
                 });
         });
     });
+    describe('GET /picture/collection/:id', () => {
+        it('should return a collection where the picture exists', function (done) {
+            chai.request(server)
+                .get('/picture/collection/5bcde7e0fb6fc060274aecfe')
+                .end(function(err, res) {
+                    expect(res).to.have.status(200);
+                    expect(res.body).to.have.property('message')
+                        .equal('character is collected in Japanese illustration' );
+                    done();
+                });
+        });
+        it('should return a message for invalid id', function (done) {
+            chai.request(server)
+                .get('/picture/collection/0000000000')
+                .end(function(err, res) {
+                    expect(res).to.have.status(200);
+                    expect(res.body).to.have.property('message', 'No Such Picture!' );
+                    Collection.collection.drop();
+                    Picture.collection.drop();
+                    User.collection.drop();
+                    done();
+                });
+        });
+    });
 });
