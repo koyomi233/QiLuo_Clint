@@ -64,5 +64,34 @@ describe('User', () => {
                 });
         });
     });
+    describe('GET /user/names/:name', () => {
+        it('should return a message for invalid user name', function (done) {
+            chai.request(server)
+                .get('/user/names/Marvel')
+                .end(function(err, res) {
+                    expect(res).to.have.status(200);
+                    expect(res.body).to.have.property('message', 'User NOT Found!' );
+                    done();
+                });
+        });
+        it('should return a user which matched the name', function (done) {
+            chai.request(server)
+                .get('/user/names/soundtrack')
+                .end(function(err, res) {
+                    expect(res).to.have.status(200);
+                    expect(res.body).to.be.a('array');
+                    expect(res.body.length).to.equal(1);
+                    let result = _.map(res.body, (account) => {
+                        return { name: account.name,
+                            email: account.email}
+                    });
+                    expect(result).to.include( { name: 'soundtrack', email: '317657452@qq.com'  } );
+                    Collection.collection.remove();
+                    Picture.collection.remove();
+                    User.collection.remove();
+                    done();
+                });
+        });
+    });
 
 });
