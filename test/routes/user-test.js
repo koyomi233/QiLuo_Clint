@@ -93,5 +93,41 @@ describe('User', () => {
                 });
         });
     });
+    describe('POST /user', () => {
+        it('should return a message and update users', function (done) {
+            let user = {
+                name: 'zack' ,
+                password: 'jkjflsf9789789',
+                email: 'zack12345@qq.com',
+                collectionid: [],
+                fans: [],
+                follows: []
+            };
+            chai.request(server)
+                .post('/user')
+                .send(user)
+                .end(function(err, res) {
+                    expect(res).to.have.status(200);
+                    expect(res.body).to.have.property('message')
+                        .equal('User Successfully Added!' );
+                    done();
+                });
+        });
+        after(function(done){
+            chai.request(server)
+                .get('/user')
+                .end(function(err, res) {
+                    let result = _.map(res.body, (account) => {
+                        return { name: account.name,
+                            email: account.email}
+                    });
+                    expect(result).to.include( { name: 'zack', email: 'zack12345@qq.com' } );
+                    Collection.collection.remove();
+                    Picture.collection.remove();
+                    User.collection.remove();
+                    done();
+                });
+        });
+    });
 
 });
