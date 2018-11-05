@@ -4,12 +4,11 @@ Name: ... Zhiwen Han ...
 
 ## Overview.
 
-...... A statement of the API's context and objectives (just a paragraph)........
+ Three models: collection, picture and user. The relation among these three is that user creates collections,
+ and collection has pictures. Beside basic CRUD, for example, if a collection is deleted, the pictures in that
+ should also be deleted. You can get information about collection by finding a user or picture.
 
 ## API endpoints.
- . . . . . List the API's endpoints and state the purpose of each . . . . 
- 
- e.g.
 
  + GET /collection - Get all collections.
  + GET /collection/names/:name - Get collections by a particular name.
@@ -34,9 +33,6 @@ Name: ... Zhiwen Han ...
 
 
 ## Data storage.
-. . . . This section is only relevant if your tests included the integration of MongoDB (or other database) with the API. It should specify the database schema, i.e. JSON document structure for each collection type in the MongoDB database.
-
- e.g.
 
  CollectionSchema = new mongoose.Schema({
          category: String,
@@ -66,7 +62,6 @@ Name: ... Zhiwen Han ...
 
 
 ## Sample Test execution.
-. . . . . In this section include a listing of the output from running your tests, e.g.
 
         $ npm test
 
@@ -160,4 +155,9 @@ Name: ... Zhiwen Han ...
 [ Markdown Tip: By indenting the above listing, GitHub will display it in a 'box' and preserve any formatting.]
 
 ## Extra features.
-. . . . Briefly state any extra features of your testing that you feel should be high-lighted . . . . .
+
+ There are three test files for each route. The relation among the three should be tested as well. For example,
+ as the collection is deleted, all the pictures in this collection should also be deleted, so I test whether the
+ pictures is removed from the database. Besides, each user have follows and fans, which means if user1 follow user2
+ (user1 follow + 1), and user2 will have a new fan who is user1 (user2 fan + 1), I just test whether the ids are really
+ added to both lists.
