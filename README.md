@@ -4,6 +4,8 @@ Name: ... Zhiwen Han ...
 
 ## Overview.
 
+ GitHub: https://github.com/koyomi233/PictureWeb.git
+
  Three models: collection, picture and user. The relation among these three is that user creates collections,
  and collection has pictures. Beside basic CRUD, for example, if a collection is deleted, the pictures in that
  should also be deleted. You can get information about collection by finding a user or picture.
@@ -33,6 +35,10 @@ Name: ... Zhiwen Han ...
 
 
 ## Data storage.
+
+ The test code has managed the creation, population and destruction of all tables/collections.
+ The database is locally set, so MongooDB should be started before testing (just start, no need
+ to create anything).
 
  CollectionSchema = new mongoose.Schema({
          category: String,
