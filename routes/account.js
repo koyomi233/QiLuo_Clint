@@ -1,4 +1,4 @@
-let Account = require('../models/user');
+let Account = require('../models/account');
 let express = require('express');
 let router = express.Router();
 
@@ -12,19 +12,19 @@ router.findAll = (req, res) => {
 
         res.send(JSON.stringify(acc, null, 5));
     });
-}
+};
 
 //Find by email
 router.findOneByEmail = (req, res) => {
     res.setHeader('Content-Type', 'application/json');
 
-    Account.find({ "email" : req.params.email },function(err, acc) {
+    Account.find({ 'email' : req.params.email },function(err, acc) {
         if (err || acc.length == 0)
             res.json({ message: 'User NOT Found!', errmsg : err } );
         else
             res.send(JSON.stringify(acc, null, 5));
     });
-}
+};
 
 //Add a user
 router.addUser = (req, res) => {
@@ -44,7 +44,7 @@ router.addUser = (req, res) => {
         else
             res.json({ message: 'User Successfully Added!', data: acc });
     });
-}
+};
 
 //Delete a user
 router.deleteUser = (req, res) => {
@@ -56,7 +56,7 @@ router.deleteUser = (req, res) => {
         }
 
     });
-}
+};
 
 //Change avatar
 router.changeAvatar = (req, res) => {
@@ -75,6 +75,6 @@ router.changeAvatar = (req, res) => {
             });
         }
     });
-}
+};
 
 module.exports = router;

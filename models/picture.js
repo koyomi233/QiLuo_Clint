@@ -1,12 +1,16 @@
 let mongoose = require('mongoose');
 
 let PictureSchema = new mongoose.Schema({
-        collectionid: {type: mongoose.Schema.ObjectId, ref: 'collection'},
-        name: String,
-        describe: {type: String, default: null},
-        comment: []
-    },
-    {collection: 'pictures'});
+    name: String,
+    contentTitle: {type: String, default: ''},
+    content: {type: String, default: ''},
+    date: Date,
+    comment: [],
+    url: String,
+    userid: {type: mongoose.Schema.ObjectId, ref: 'account'},
+    upvote: Number
+},
+{collection: 'pictures'});
 
 
 module.exports = mongoose.model('picture', PictureSchema);

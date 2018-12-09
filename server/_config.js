@@ -1,8 +1,8 @@
 var config = {};
 
 config.mongoURI = {
-    development: 'mongodb://guest:picture_web123@ds137913.mlab.com:37913/picture_web_db',
-    test: 'mongodb://localhost:27017/pictureWebDB'
+    development: 'mongodb://localhost:27017/damaskdb',
+    test: 'mongodb://localhost:27017/testdb'
 };
 
 module.exports = config;
