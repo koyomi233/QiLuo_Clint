@@ -2,7 +2,3 @@ dist: trusty
 language: node_js
 node_js:
 - stable
-script:
-- npm run coverage
-after_success:
-- npm run publish-coverage
