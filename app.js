@@ -30,7 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-mongoose.connect('mongodb://localhost:27017/testdb');
+mongoose.connect('mongodb://manager:13861426640h@ds237373.mlab.com:37373/damaskdb');
 // mongoose.connect(config.mongoURI[app.settings.env], function(err, res) {
 //     if(err) {
 //         console.log('Error connecting to the database. ' + err);
