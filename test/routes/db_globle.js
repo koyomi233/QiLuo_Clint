@@ -1,7 +1,8 @@
 var Picture = require('../../models/picture');
 
 beforeEach(function(done){
-    Picture.collection.remove();
+    this.timeout(100000);
+    Picture.collection.drop();
 
     var picture1 = new Picture({
         ObjectId: '5bcde76cfb6fc060274aecb2',
