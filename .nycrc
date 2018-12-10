@@ -12,5 +12,11 @@
         "text-summary"
     ],
     "sourceMap": false,
-    "instrument": false
+    "instrument": false,
+    "check-coverage": true,
+    "per-file": false,
+    "lines": 60,
+    "statements": 60,
+    "functions": 20,
+    "branches": 20
  }
