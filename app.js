@@ -30,19 +30,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-mongoose.connect('mongodb://manager:13861426640h@ds237373.mlab.com:37373/damaskdb');
-// mongoose.connect(config.mongoURI[app.settings.env], function(err, res) {
-//     if(err) {
-//         console.log('Error connecting to the database. ' + err);
-//     } else {
-//         console.log('Connected to Database: ' + config.mongoURI[app.settings.env]);
-//     }
-// });
+// mongoose.connect('mongodb://manager:13861426640h@ds237373.mlab.com:37373/damaskdb');
+mongoose.connect(config.mongoURI[app.settings.env], function(err, res) {
+    if(err) {
+        console.log('Error connecting to the database. ' + err);
+    } else {
+        console.log('Connected to Database: ' + config.mongoURI[app.settings.env]);
+    }
+});
 
 //Customer
 app.get('/picture', picture.findAll);
 app.get('/picture/names/:name', picture.findByName);
-app.get('/picture/:id/title', picture.getContent);
+app.get('/picture/:id/title', picture.getContentTitle);
 app.get('/picture/:id/content', picture.getContent);
 app.get('/account', account.findAll);
 app.get('/account/emails/:email', account.findOneByEmail);
