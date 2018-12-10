@@ -5,7 +5,7 @@
   "scripts": {
     "server": "cross-env NODE_ENV=dev PORT=3001 node lib/bin/www",
     "start": "npm-run-all test build server",
-    "test": "cross-env NODE_ENV=test mocha --compilers js:babel-core/register test/routes/picture-test.js",
+    "test": "cross-env NODE_ENV=test mocha --compilers js:babel-core/register test/routes/account-test.js",
     "postbuild": "npm run server",
     "prebuild": "npm-run-all test clean",
     "build": "babel ./ --out-dir lib/ --ignore ./node_modules,./.babelrc,./package.json,./package-lock.json,./test --copy-files",
