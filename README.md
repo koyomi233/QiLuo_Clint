@@ -1,14 +1,12 @@
-# Assignment 1 - API testing and Source Control.
+# Assignment 2 - Automated development.
 
 Name: ... Zhiwen Han ...
 
 ## Overview.
 
- GitHub: https://github.com/koyomi233/PictureWeb.git
+ GitHub: https://github.com/koyomi233/QiLuo_Clint.git
 
- Three models: collection, picture and user. The relation among these three is that user creates collections,
- and collection has pictures. Beside basic CRUD, for example, if a collection is deleted, the pictures in that
- should also be deleted. You can get information about collection by finding a user or picture.
+ Two models: picture and user. The relation among these two is that user creates pictures,
 
 ## API endpoints.
 
