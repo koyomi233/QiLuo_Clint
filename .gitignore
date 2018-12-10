@@ -2,6 +2,7 @@
 *.log
 /.idea
 /lib
+/coverage
 package-lock.json
 /**/.DS_S*
 *DS_St*
